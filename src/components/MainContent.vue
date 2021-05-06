@@ -5,17 +5,24 @@
         <AlbumCard :albumCard="album" />
       </div>
     </div>
-    <div v-else class="loading">Loading...</div>
+    <Loader v-else label="Loading albums!">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <path d="M18 13 L26 2 8 13 14 19 6 30 24 19 Z" />
+      </svg>
+    </Loader>
   </section>
 </template>
 
 <script>
 import axios from "axios";
 import AlbumCard from "@/components/AlbumCard.vue";
+import Loader from "@/components/Loader.vue";
+
 export default {
   name: "MainContent",
   components: {
     AlbumCard,
+    Loader,
   },
   data() {
     return {
