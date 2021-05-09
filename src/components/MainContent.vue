@@ -86,7 +86,7 @@ export default {
     flex-wrap: wrap;
     margin-top: 1rem;
     .album {
-      flex-basis: calc(100% / 8 - 2rem);
+      flex-basis: 170px;
       margin: 0.5rem;
     }
   }
