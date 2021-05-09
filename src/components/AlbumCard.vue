@@ -23,11 +23,11 @@ export default {
   @include df("vertical");
   flex-direction: column;
   padding: 1rem;
-  height: 380px;
+  min-height: 380px;
+  text-align: center;
   background: $brand-color;
   h3 {
     font-size: 20px;
-    text-align: center;
     color: $text-primary;
     margin: 1.5rem 0 1rem;
   }

@@ -1,7 +1,12 @@
 <template>
   <section class="main-content">
+    <Search @performSearch="searchAlbum" />
     <div v-if="!loading" class="cards">
-      <div v-for="(album, index) in albumList" :key="index" class="album">
+      <div
+        v-for="(album, index) in filteredAlbumList"
+        :key="index"
+        class="album"
+      >
         <AlbumCard :albumCard="album" />
       </div>
     </div>
@@ -17,19 +22,33 @@
 import axios from "axios";
 import AlbumCard from "@/components/AlbumCard.vue";
 import Loader from "@/components/Loader.vue";
+import Search from "@/components/Search.vue";
 
 export default {
   name: "MainContent",
   components: {
     AlbumCard,
     Loader,
+    Search,
   },
   data() {
     return {
       apiURL: "https://flynn.boolean.careers/exercises/api/array/music",
       albumList: [],
       loading: true,
+      searchingAlbum: "",
     };
+  },
+  computed: {
+    filteredAlbumList() {
+      if (this.searchingAlbum === "all" || this.searchingAlbum === "") {
+        return this.albumList;
+      }
+
+      return this.albumList.filter((album) => {
+        return album.genre.toLowerCase() === this.searchingAlbum.toLowerCase();
+      });
+    },
   },
   created() {
     this.getAlbums();
@@ -46,6 +65,9 @@ export default {
           console.log("ERROR", err);
         });
     },
+    searchAlbum(opt) {
+      this.searchingAlbum = opt;
+    },
   },
 };
 </script>
@@ -56,7 +78,8 @@ export default {
 
 .main-content {
   @include df();
-  height: calc(100vh - 70px);
+  flex-direction: column;
+  height: calc(100% - 70px);
   background: $brand-background;
   .cards {
     @include df();
